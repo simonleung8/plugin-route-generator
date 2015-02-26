@@ -23,7 +23,7 @@ func main() {
 func (g *GenRoutes) Run(cliConnection plugin.CliConnection, args []string) {
 	if args[0] == "gen-routes" {
 		if len(args) != 6 {
-			fmt.Println("Invalid Usage: cf gen-route APP_NAME DOMAIN HOST NUM_ROUTE")
+			fmt.Println("Invalid Usage: cf gen-route APP_NAME SPACE DOMAIN HOST NUM_ROUTE")
 			os.Exit(1)
 		}
 
