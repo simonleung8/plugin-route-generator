@@ -47,7 +47,7 @@ func (g *GenRoutes) Run(cliConnection plugin.CliConnection, args []string) {
 
 	} else if args[0] == "del-routes" {
 		if len(args) != 4 {
-			fmt.Println("Invalid Usage: cf del-route APP_NAME SPACE DOMAIN HOST NUM_ROUTE")
+			fmt.Println("Invalid Usage: cf del-route DOMAIN HOST NUM_ROUTE")
 			os.Exit(1)
 		}
 
