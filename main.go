@@ -41,7 +41,6 @@ func (g *GenRoutes) Run(cliConnection plugin.CliConnection, args []string) {
 		fmt.Printf("Generating %d routes for '%s'...\n\n", i, args[2])
 
 		for x := int(offset); x < int(i+offset); x++ {
-			cliConnection.CliCommand("create-route", args[2], args[3], "-n", args[4]+strconv.Itoa(x))
 			cliConnection.CliCommand("map-route", args[1], args[3], "-n", args[4]+strconv.Itoa(x))
 		}
 
@@ -80,7 +79,7 @@ func (g *GenRoutes) GetMetadata() plugin.PluginMetadata {
 				Alias:    "gr",
 				HelpText: "Generate routes for an app",
 				UsageDetails: plugin.Usage{
-					Usage: "cf gen-route APP_NAME SPACE DOMAIN HOST NUM_ROUTE",
+					Usage: "cf gen-route APP_NAME SPACE DOMAIN HOST NUM_ROUTE OFFSET",
 				},
 			},
 			{
