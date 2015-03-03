@@ -22,27 +22,44 @@ func main() {
 
 func (g *GenRoutes) Run(cliConnection plugin.CliConnection, args []string) {
 	if args[0] == "gen-routes" {
-		if len(args) != 7 {
-			fmt.Println("Invalid Usage: cf gen-route APP_NAME SPACE DOMAIN HOST NUM_ROUTE OFFSET")
-			os.Exit(1)
-		}
-
-		i, err := strconv.ParseInt(args[5], 10, 64)
+		///////////////////////////////////
+		i, err := strconv.ParseInt(args[1], 10, 64)
 		if err != nil {
 			fmt.Println("Num of route is invalid:", err)
 			os.Exit(1)
 		}
-		offset, err := strconv.ParseInt(args[6], 10, 64)
-		if err != nil {
-			fmt.Println("Num of offset is invalid:", err)
-			os.Exit(1)
+		fmt.Println(i)
+
+		for x := 0; x < int(i); x++ {
+			// go cliConnection.CliCommand("files", "plugins")
+			go cliConnection.CliCommand("app", "plugins", "--guid")
 		}
 
-		fmt.Printf("Generating %d routes for '%s'...\n\n", i, args[2])
+		go cliConnection.CliCommand("app", "cli")
+		c := make(chan int)
+		<-c
+		///////////////////////////////////
+		// if len(args) != 7 {
+		// 	fmt.Println("Invalid Usage: cf gen-route APP_NAME SPACE DOMAIN HOST NUM_ROUTE OFFSET")
+		// 	os.Exit(1)
+		// }
 
-		for x := int(offset); x < int(i+offset); x++ {
-			cliConnection.CliCommand("map-route", args[1], args[3], "-n", args[4]+strconv.Itoa(x))
-		}
+		// i, err := strconv.ParseInt(args[5], 10, 64)
+		// if err != nil {
+		// 	fmt.Println("Num of route is invalid:", err)
+		// 	os.Exit(1)
+		// }
+		// offset, err := strconv.ParseInt(args[6], 10, 64)
+		// if err != nil {
+		// 	fmt.Println("Num of offset is invalid:", err)
+		// 	os.Exit(1)
+		// }
+
+		// fmt.Printf("Generating %d routes for '%s'...\n\n", i, args[2])
+
+		// for x := int(offset); x < int(i+offset); x++ {
+		// 	cliConnection.CliCommand("map-route", args[1], args[3], "-n", args[4]+strconv.Itoa(x))
+		// }
 
 	} else if args[0] == "del-routes" {
 		if len(args) != 4 {
